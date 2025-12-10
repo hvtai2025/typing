@@ -29,6 +29,7 @@ class TypingGame {
         
         // Current word and word list
         this.currentWord = '';
+        this.currentIcon = null;
         this.usedWords = [];
         
         // Player progress
@@ -267,18 +268,28 @@ class TypingGame {
         const wordList = settings.wordList;
         
         // Get a word that hasn't been used recently
-        let newWord;
+        let wordObj;
         let attempts = 0;
         do {
-            newWord = getRandomWord(wordList);
+            wordObj = getRandomWord(wordList);
             attempts++;
-        } while (this.usedWords.includes(newWord) && attempts < 50);
+        } while (this.usedWords.includes(wordObj.word) && attempts < 50);
         
-        this.currentWord = newWord;
-        this.elements.targetWord.textContent = newWord;
+        this.currentWord = wordObj.word;
+        this.currentIcon = wordObj.icon;
+        
+        // Display word with icon if available
+        if (this.currentIcon) {
+            this.elements.targetWord.innerHTML = `
+                <span style="font-size: 4rem; margin-right: 15px;">${this.currentIcon}</span>
+                <span>${this.currentWord}</span>
+            `;
+        } else {
+            this.elements.targetWord.textContent = this.currentWord;
+        }
         
         // Track used words (keep last 20 to avoid immediate repeats)
-        this.usedWords.push(newWord);
+        this.usedWords.push(this.currentWord);
         if (this.usedWords.length > 20) {
             this.usedWords.shift();
         }
