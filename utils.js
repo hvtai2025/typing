@@ -196,7 +196,7 @@ const WORD_LISTS = {
         { word: 'melon', icon: '🍉', vi: 'dưa hấu' },
         { word: 'peach', icon: '🍑', vi: 'đào' },
         { word: 'lemon', icon: '🍋', vi: 'chanh' },
-        { word: 'berry', icon: '🫐', vi: 'quả mam' },
+        { word: 'berry', icon: '🫐', vi: 'quả mọng' },
         { word: 'water', icon: '💧', vi: 'nước' },
         { word: 'juice', icon: '🧃', vi: 'nước ép' },
         { word: 'broom', icon: '🧹', vi: 'chổi' },
