@@ -1,0 +1,40 @@
+{
+  "name": "type-master-kids-typing-game",
+  "version": "1.0.0",
+  "description": "A fun, colorful typing practice game designed for children ages 10 and under",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "serve": "npx http-server -p 8080 -o"
+  },
+  "keywords": [
+    "typing",
+    "game",
+    "kids",
+    "education",
+    "typing-practice",
+    "children",
+    "learning"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "collectCoverageFrom": [
+      "*.js",
+      "!example-tests.js",
+      "!jest.config.js"
+    ],
+    "testMatch": [
+      "**/*.test.js",
+      "**/*.spec.js"
+    ]
+  }
+}

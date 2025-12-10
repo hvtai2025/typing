@@ -1,0 +1,619 @@
+/* Import kid-friendly fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Comic+Neue:wght@400;700&display=swap');
+
+/* CSS Variables for easy theming */
+:root {
+    --primary-color: #FF6B9D;
+    --secondary-color: #FEC02F;
+    --success-color: #4ADE80;
+    --error-color: #FF6B6B;
+    --background: #F0F9FF;
+    --card-bg: #FFFFFF;
+    --text-dark: #2D3748;
+    --text-light: #718096;
+    --border-radius: 20px;
+    --shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Fredoka', 'Comic Neue', cursive, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    color: var(--text-dark);
+}
+
+/* Screen Reader Only (for accessibility) */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Main Container */
+.app-container {
+    display: flex;
+    background: var(--background);
+    border-radius: 0;
+    box-shadow: none;
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    animation: slideIn 0.5s ease;
+    gap: 0;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Sidebar */
+.sidebar {
+    width: 320px;
+    background: white;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.header {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+    margin: 0;
+}
+
+.level-display {
+    display: flex;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    width: 100%;
+    justify-content: center;
+}
+
+.level-badge {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 8px 15px;
+    border-radius: 50px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    flex: 1;
+    text-align: center;
+}
+
+.stars {
+    background: var(--background);
+    padding: 8px 15px;
+    border-radius: 50px;
+    color: var(--secondary-color);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    text-align: center;
+}
+
+/* Mode Selector */
+.mode-selector, .difficulty-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.mode-btn, .difficulty-btn {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: 'Fredoka', cursive;
+    border: 3px solid transparent;
+    border-radius: 12px;
+    background: var(--background);
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mode-btn:hover, .difficulty-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.mode-btn.active, .difficulty-btn.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border-color: white;
+}
+
+.mode-btn:focus, .difficulty-btn:focus {
+    outline: 3px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* Stats Container */
+.stats-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    background: var(--background);
+    padding: 12px 15px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    min-width: 80px;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* Progress Bar */
+.progress-container {
+    position: relative;
+    background: var(--background);
+    border-radius: 50px;
+    height: 35px;
+    overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--success-color), var(--secondary-color));
+    border-radius: 50px;
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+}
+
+/* Game Area */
+.game-area {
+    flex: 1;
+    background: white;
+    padding: 40px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    overflow-y: auto;
+}
+
+/* Word Display */
+.word-display {
+    text-align: center;
+    width: 100%;
+}
+
+.target-word {
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    letter-spacing: 8px;
+    text-transform: lowercase;
+    padding: 20px;
+    background: linear-gradient(135deg, #FFF9E6, #FFE6F0);
+    border-radius: 20px;
+    display: inline-block;
+    min-width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+}
+
+/* Typing Area */
+.typing-area {
+    width: 100%;
+    max-width: 700px;
+}
+
+.typing-input {
+    width: 100%;
+    padding: 25px;
+    font-size: 2.5rem;
+    font-family: 'Fredoka', cursive;
+    font-weight: 600;
+    text-align: center;
+    border: 4px solid var(--primary-color);
+    border-radius: 15px;
+    background: #FAFAFA;
+    color: var(--text-dark);
+    transition: var(--transition);
+    letter-spacing: 4px;
+}
+
+.typing-input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 4px rgba(254, 192, 47, 0.2);
+    background: white;
+}
+
+.typing-input.correct {
+    border-color: var(--success-color);
+    background: #F0FDF4;
+    animation: successShake 0.5s ease;
+}
+
+.typing-input.incorrect {
+    border-color: var(--error-color);
+    background: #FEF2F2;
+    animation: errorShake 0.5s ease;
+}
+
+@keyframes successShake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px) rotate(-1deg); }
+    75% { transform: translateX(5px) rotate(1deg); }
+}
+
+@keyframes errorShake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+    20%, 40%, 60%, 80% { transform: translateX(10px); }
+}
+
+.input-feedback {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    min-height: 40px;
+}
+
+.input-feedback.success {
+    color: var(--success-color);
+    animation: bounceIn 0.5s ease;
+}
+
+.input-feedback.error {
+    color: var(--error-color);
+    animation: bounceIn 0.5s ease;
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Virtual Keyboard */
+.keyboard {
+    width: 100%;
+    max-width: 700px;
+}
+
+.keyboard-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.key {
+    width: 60px;
+    height: 60px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-family: 'Fredoka', cursive;
+    background: white;
+    border: 3px solid #E2E8F0;
+    border-radius: 10px;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.key:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.key.active {
+    background: var(--secondary-color);
+    color: white;
+    transform: scale(0.95);
+}
+
+.key.highlight {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    animation: keyPulse 0.5s ease;
+}
+
+@keyframes keyPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-primary, .btn-secondary {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-family: 'Fredoka', cursive;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+}
+
+.btn-secondary {
+    background: var(--background);
+    color: var(--primary-color);
+    border: 3px solid var(--primary-color);
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn-primary:focus, .btn-secondary:focus {
+    outline: 3px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+.btn-primary:active, .btn-secondary:active {
+    transform: translateY(0);
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 50px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: modalSlideUp 0.5s ease;
+}
+
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-content h2 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+.results {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    line-height: 2;
+}
+
+.results div {
+    margin: 10px 0;
+}
+
+/* Confetti */
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--primary-color);
+    animation: confettiFall 3s linear forwards;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .app-container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        max-height: 40vh;
+        padding: 20px;
+    }
+    
+    .game-area {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 1.5rem;
+    }
+    
+    .sidebar {
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .target-word {
+        font-size: 2.5rem;
+        letter-spacing: 4px;
+        min-width: 200px;
+    }
+    
+    .typing-input {
+        font-size: 1.8rem;
+        padding: 20px;
+    }
+    
+    .key {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+    
+    .stat-value {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .game-area {
+        padding: 15px;
+    }
+    
+    .key {
+        width: 35px;
+        height: 35px;
+        font-size: 0.9rem;
+    }
+    
+    .keyboard-row {
+        gap: 5px;
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .mode-btn, .difficulty-btn, .key {
+        border-width: 4px;
+    }
+    
+    .typing-input:focus {
+        border-width: 6px;
+    }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

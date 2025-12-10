@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 Type Master - Fun Typing Game for Kids!</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app" class="app-container">
+        <!-- Left Sidebar: Controls and Stats -->
+        <aside class="sidebar">
+            <!-- Header Section -->
+            <header class="header">
+                <h1 class="title">🎮 Type Master</h1>
+                <div class="level-display" role="status" aria-live="polite">
+                    <span class="level-badge">Level <span id="level">1</span></span>
+                    <span class="stars">⭐ <span id="stars">0</span></span>
+                </div>
+            </header>
+
+            <!-- Mode Selection -->
+            <div class="mode-selector" role="navigation" aria-label="Game mode selection">
+                <button class="mode-btn active" id="mode-practice" data-mode="practice" aria-pressed="true">
+                    🎯 Practice
+                </button>
+                <button class="mode-btn" id="mode-timed-30" data-mode="timed-30" aria-pressed="false">
+                    ⏱️ 30 Seconds
+                </button>
+                <button class="mode-btn" id="mode-timed-60" data-mode="timed-60" aria-pressed="false">
+                    🏃 60 Seconds
+                </button>
+            </div>
+
+            <!-- Difficulty Selection -->
+            <div class="difficulty-selector" role="navigation" aria-label="Difficulty selection">
+                <button class="difficulty-btn active" id="diff-beginner" data-difficulty="beginner" aria-pressed="true">
+                    🌟 Beginner
+                </button>
+                <button class="difficulty-btn" id="diff-intermediate" data-difficulty="intermediate" aria-pressed="false">
+                    🚀 Intermediate
+                </button>
+            </div>
+
+            <!-- Game Stats -->
+            <div class="stats-container" role="region" aria-label="Game statistics">
+                <div class="stat-item">
+                    <span class="stat-label">Score</span>
+                    <span class="stat-value" id="score">0</span>
+                </div>
+                <div class="stat-item" id="timer-container" style="display: none;">
+                    <span class="stat-label">Time</span>
+                    <span class="stat-value" id="timer">30</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Streak</span>
+                    <span class="stat-value" id="streak">0</span>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" id="progress-bar"></div>
+                <span class="progress-text" id="progress-text">0 / 10</span>
+            </div>
+
+            <!-- Start/Reset Button -->
+            <div class="action-buttons">
+                <button class="btn-primary" id="start-btn">🚀 Start Game</button>
+                <button class="btn-secondary" id="reset-btn" style="display: none;">🔄 New Game</button>
+            </div>
+        </aside>
+
+        <!-- Main Game Area -->
+        <main class="game-area">
+            <!-- Target Word Display -->
+            <div class="word-display" role="region" aria-label="Word to type">
+                <div class="target-word" id="target-word" aria-live="polite">cat</div>
+            </div>
+
+            <!-- Typing Input Area -->
+            <div class="typing-area">
+                <label for="typing-input" class="sr-only">Type the word shown above</label>
+                <input 
+                    type="text" 
+                    id="typing-input" 
+                    class="typing-input" 
+                    autocomplete="off"
+                    autocorrect="off"
+                    spellcheck="false"
+                    placeholder="Type here..."
+                    aria-describedby="target-word"
+                    autofocus
+                />
+                <div class="input-feedback" id="input-feedback" role="status" aria-live="assertive"></div>
+            </div>
+
+            <!-- Virtual Keyboard -->
+            <div class="keyboard" role="region" aria-label="Virtual keyboard">
+                <div class="keyboard-row">
+                    <button class="key" data-key="q">Q</button>
+                    <button class="key" data-key="w">W</button>
+                    <button class="key" data-key="e">E</button>
+                    <button class="key" data-key="r">R</button>
+                    <button class="key" data-key="t">T</button>
+                    <button class="key" data-key="y">Y</button>
+                    <button class="key" data-key="u">U</button>
+                    <button class="key" data-key="i">I</button>
+                    <button class="key" data-key="o">O</button>
+                    <button class="key" data-key="p">P</button>
+                </div>
+                <div class="keyboard-row">
+                    <button class="key" data-key="a">A</button>
+                    <button class="key" data-key="s">S</button>
+                    <button class="key" data-key="d">D</button>
+                    <button class="key" data-key="f">F</button>
+                    <button class="key" data-key="g">G</button>
+                    <button class="key" data-key="h">H</button>
+                    <button class="key" data-key="j">J</button>
+                    <button class="key" data-key="k">K</button>
+                    <button class="key" data-key="l">L</button>
+                </div>
+                <div class="keyboard-row">
+                    <button class="key" data-key="z">Z</button>
+                    <button class="key" data-key="x">X</button>
+                    <button class="key" data-key="c">C</button>
+                    <button class="key" data-key="v">V</button>
+                    <button class="key" data-key="b">B</button>
+                    <button class="key" data-key="n">N</button>
+                    <button class="key" data-key="m">M</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Results Modal -->
+        <div class="modal" id="results-modal" style="display: none;" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+            <div class="modal-content">
+                <h2 id="modal-title">🎉 Awesome Job!</h2>
+                <div class="results" id="results-content"></div>
+                <button class="btn-primary" id="play-again-btn">Play Again</button>
+            </div>
+        </div>
+
+        <!-- Confetti Container -->
+        <div class="confetti-container" id="confetti-container"></div>
+    </div>
+
+    <script src="utils.js"></script>
+    <script src="sounds.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
