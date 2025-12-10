@@ -52,28 +52,6 @@
                 </button>
             </div>
 
-            <!-- Game Stats -->
-            <div class="stats-container" role="region" aria-label="Game statistics">
-                <div class="stat-item">
-                    <span class="stat-label">Score</span>
-                    <span class="stat-value" id="score">0</span>
-                </div>
-                <div class="stat-item" id="timer-container" style="display: none;">
-                    <span class="stat-label">Time</span>
-                    <span class="stat-value" id="timer">30</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">Streak</span>
-                    <span class="stat-value" id="streak">0</span>
-                </div>
-            </div>
-
-            <!-- Progress Bar -->
-            <div class="progress-container" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
-                <div class="progress-bar" id="progress-bar"></div>
-                <span class="progress-text" id="progress-text">0 / 10</span>
-            </div>
-
             <!-- Start/Reset Button -->
             <div class="action-buttons">
                 <button class="btn-primary" id="start-btn">🚀 Start Game</button>
@@ -173,6 +151,35 @@
             </div>
         </div>
         </main>
+
+        <!-- Right Sidebar: Game Statistics -->
+        <aside class="sidebar-right">
+            <div class="stats-header">
+                <h2 class="stats-title">📊 Statistics</h2>
+            </div>
+
+            <!-- Game Stats -->
+            <div class="stats-container" role="region" aria-label="Game statistics">
+                <div class="stat-item">
+                    <span class="stat-label">Score</span>
+                    <span class="stat-value" id="score">0</span>
+                </div>
+                <div class="stat-item" id="timer-container" style="display: none;">
+                    <span class="stat-label">Time</span>
+                    <span class="stat-value" id="timer">30</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Streak</span>
+                    <span class="stat-value" id="streak">0</span>
+                </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="progress-container" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" id="progress-bar"></div>
+                <span class="progress-text" id="progress-text">0 / 10</span>
+            </div>
+        </aside>
 
         <!-- Welcome Modal -->
         <div class="modal" id="welcome-modal" style="display: none;" role="dialog" aria-labelledby="welcome-title" aria-modal="true">
