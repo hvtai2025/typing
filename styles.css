@@ -699,6 +699,78 @@ body {
     margin: 10px 0;
 }
 
+/* Welcome Modal Specific Styles */
+.welcome-content {
+    text-align: center;
+    max-width: 500px;
+}
+
+.welcome-message {
+    margin: 20px 0;
+    font-size: 1.2rem;
+    color: var(--text-dark);
+}
+
+.welcome-message p {
+    margin: 10px 0;
+}
+
+.name-input-container {
+    margin: 30px 0;
+}
+
+.name-label {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.name-input {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1.2rem;
+    font-family: 'Fredoka', cursive;
+    border: 3px solid var(--primary-color);
+    border-radius: 15px;
+    outline: none;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.name-input:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.2);
+}
+
+.btn-start {
+    font-size: 1.3rem;
+    padding: 15px 40px;
+    margin-top: 10px;
+}
+
+.btn-start:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #ccc;
+}
+
+/* Player Greeting */
+.player-greeting {
+    text-align: center;
+    padding: 10px;
+    background: linear-gradient(135deg, #FFE5E5, #FFF0E5);
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.greeting-text {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
 /* Confetti */
 .confetti-container {
     position: fixed;

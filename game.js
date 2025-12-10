@@ -34,6 +34,7 @@ class TypingGame {
         
         // Player progress
         this.playerProgress = Storage.loadProgress();
+        this.playerName = localStorage.getItem('playerName') || null;
         
         // DOM elements (cached for performance)
         this.elements = this.cacheElements();
@@ -47,6 +48,11 @@ class TypingGame {
      */
     cacheElements() {
         return {
+            welcomeModal: document.getElementById('welcome-modal'),
+            playerNameInput: document.getElementById('player-name'),
+            startAdventureBtn: document.getElementById('start-adventure-btn'),
+            playerGreeting: document.getElementById('player-greeting'),
+            playerNameDisplay: document.getElementById('player-name-display'),
             targetWord: document.getElementById('target-word'),
             typingInput: document.getElementById('typing-input'),
             inputFeedback: document.getElementById('input-feedback'),
@@ -73,6 +79,13 @@ class TypingGame {
      * Initialize game and set up event listeners
      */
     init() {
+        // Check if first time player
+        if (!this.playerName) {
+            this.showWelcomeModal();
+        } else {
+            this.showPlayerGreeting();
+        }
+        
         // Display saved progress
         this.updateProgressDisplay();
         
@@ -82,14 +95,30 @@ class TypingGame {
         // Load first word
         this.loadNewWord();
         
-        // Focus input field
-        this.elements.typingInput.focus();
+        // Focus input field if not showing welcome modal
+        if (this.playerName) {
+            this.elements.typingInput.focus();
+        }
     }
 
     /**
      * Set up all event listeners
      */
     setupEventListeners() {
+        // Welcome modal events
+        if (this.elements.playerNameInput) {
+            this.elements.playerNameInput.addEventListener('input', () => this.validatePlayerName());
+            this.elements.playerNameInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && this.elements.startAdventureBtn.disabled === false) {
+                    this.startAdventure();
+                }
+            });
+        }
+        
+        if (this.elements.startAdventureBtn) {
+            this.elements.startAdventureBtn.addEventListener('click', () => this.startAdventure());
+        }
+        
         // Typing input
         this.elements.typingInput.addEventListener('input', (e) => this.handleTyping(e));
         this.elements.typingInput.addEventListener('keydown', (e) => {
@@ -558,6 +587,66 @@ class TypingGame {
         
         // Focus input
         this.elements.typingInput.focus();
+    }
+
+    /**
+     * Show welcome modal for first-time players
+     */
+    showWelcomeModal() {
+        if (this.elements.welcomeModal) {
+            this.elements.welcomeModal.style.display = 'flex';
+            setTimeout(() => {
+                this.elements.playerNameInput.focus();
+            }, 300);
+        }
+    }
+
+    /**
+     * Validate player name input
+     */
+    validatePlayerName() {
+        const name = this.elements.playerNameInput.value.trim();
+        this.elements.startAdventureBtn.disabled = name.length < 2;
+    }
+
+    /**
+     * Start the adventure with player name
+     */
+    startAdventure() {
+        const name = this.elements.playerNameInput.value.trim();
+        if (name.length >= 2) {
+            this.playerName = name;
+            localStorage.setItem('playerName', name);
+            
+            // Hide welcome modal with animation
+            this.elements.welcomeModal.style.display = 'none';
+            
+            // Show greeting
+            this.showPlayerGreeting();
+            
+            // Play celebration sound
+            if (window.soundManager) {
+                window.soundManager.play('levelComplete');
+            }
+            
+            // Show confetti
+            this.createConfetti();
+            
+            // Focus on typing input
+            setTimeout(() => {
+                this.elements.typingInput.focus();
+            }, 500);
+        }
+    }
+
+    /**
+     * Show player greeting in header
+     */
+    showPlayerGreeting() {
+        if (this.playerName && this.elements.playerGreeting) {
+            this.elements.playerNameDisplay.textContent = this.playerName;
+            this.elements.playerGreeting.style.display = 'block';
+        }
     }
 }
 

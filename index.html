@@ -13,6 +13,9 @@
             <!-- Header Section -->
             <header class="header">
                 <h1 class="title">🎮 Type Master</h1>
+                <div class="player-greeting" id="player-greeting" style="display: none;">
+                    <span class="greeting-text">Hi, <span id="player-name-display"></span>! 👋</span>
+                </div>
                 <div class="level-display" role="status" aria-live="polite">
                     <span class="level-badge">Level <span id="level">1</span></span>
                     <span class="stars">⭐ <span id="stars">0</span></span>
@@ -162,6 +165,30 @@
             </div>
         </div>
         </main>
+
+        <!-- Welcome Modal -->
+        <div class="modal" id="welcome-modal" style="display: none;" role="dialog" aria-labelledby="welcome-title" aria-modal="true">
+            <div class="modal-content welcome-content">
+                <h2 id="welcome-title">🎮 Welcome to Type Master!</h2>
+                <div class="welcome-message">
+                    <p>👋 Hello, new friend!</p>
+                    <p>Let's start your typing adventure!</p>
+                </div>
+                <div class="name-input-container">
+                    <label for="player-name" class="name-label">What's your name?</label>
+                    <input 
+                        type="text" 
+                        id="player-name" 
+                        class="name-input" 
+                        placeholder="Type your name here..."
+                        maxlength="20"
+                        autocomplete="off"
+                        aria-label="Enter your name"
+                    />
+                </div>
+                <button class="btn-primary btn-start" id="start-adventure-btn" disabled>Start Adventure! 🚀</button>
+            </div>
+        </div>
 
         <!-- Results Modal -->
         <div class="modal" id="results-modal" style="display: none;" role="dialog" aria-labelledby="modal-title" aria-modal="true">
