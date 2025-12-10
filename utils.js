@@ -1236,6 +1236,7 @@ const Storage = {
             level: 1,
             stars: 0,
             totalScore: 0,
+            totalPoints: 0,
             gamesPlayed: 0,
             wordsTyped: 0,
             accuracy: 100,

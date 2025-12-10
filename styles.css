@@ -255,6 +255,26 @@ body {
     color: var(--primary-color);
 }
 
+/* Highlight stat for total points */
+.highlight-stat {
+    background: linear-gradient(135deg, #FFF4E6, #FFE5CC);
+    border: 2px solid var(--secondary-color);
+    box-shadow: 0 4px 8px rgba(254, 192, 47, 0.3);
+}
+
+.highlight-stat .stat-label {
+    color: #D97706;
+    font-weight: 700;
+}
+
+.highlight-stat .stat-value {
+    background: linear-gradient(135deg, var(--secondary-color), #F59E0B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 2.2rem;
+}
+
 /* Progress Bar */
 .progress-container {
     position: relative;

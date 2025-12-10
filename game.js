@@ -16,6 +16,7 @@ class TypingGame {
         
         // Game stats
         this.score = 0;
+        this.totalPoints = 0; // Cumulative points across all games
         this.streak = 0;
         this.bestStreak = 0;
         this.mistakes = 0;
@@ -34,6 +35,7 @@ class TypingGame {
         
         // Player progress
         this.playerProgress = Storage.loadProgress();
+        this.totalPoints = this.playerProgress.totalPoints || 0;
         this.playerName = localStorage.getItem('playerName') || null;
         this.showVietnamese = localStorage.getItem('showVietnamese') === 'true' || false;
         
@@ -60,6 +62,7 @@ class TypingGame {
             typingInput: document.getElementById('typing-input'),
             inputFeedback: document.getElementById('input-feedback'),
             score: document.getElementById('score'),
+            totalPoints: document.getElementById('total-points'),
             streak: document.getElementById('streak'),
             timer: document.getElementById('timer'),
             timerContainer: document.getElementById('timer-container'),
@@ -383,6 +386,25 @@ class TypingGame {
             // Incorrect input
             this.elements.typingInput.className = 'typing-input incorrect';
             
+            // Count mistakes and apply penalty
+            if (typedText.length > 0 && !targetText.startsWith(typedText)) {
+                this.mistakes++;
+                
+                // Deduct 2 points for each mistake (simple flat penalty)
+                const penalty = 2;
+                this.score = Math.max(0, this.score - penalty);
+                this.totalPoints = Math.max(0, this.totalPoints - penalty);
+                
+                // Reset streak on mistake
+                if (this.streak > 0) {
+                    this.streak = 0;
+                    showFeedback(`❌ Mistake! -${penalty} points`, 'error');
+                    soundManager.playIncorrectSound();
+                }
+                
+                this.updateDisplay();
+            }
+            
             // Still show correct finger for next letter
             if (typedText.length < targetText.length) {
                 const nextLetter = targetText[typedText.length];
@@ -401,6 +423,7 @@ class TypingGame {
         this.wordsCompleted++;
         this.correctWords++;
         this.score += settings.pointsPerWord;
+        this.totalPoints += settings.pointsPerWord;
         this.streak++;
         
         // Track best streak
@@ -441,6 +464,7 @@ class TypingGame {
     updateDisplay() {
         // Update stats
         this.elements.score.textContent = this.score;
+        this.elements.totalPoints.textContent = this.totalPoints.toLocaleString();
         this.elements.streak.textContent = this.streak;
         
         // Update progress bar (for practice mode)
@@ -463,6 +487,7 @@ class TypingGame {
     updateProgressDisplay() {
         this.elements.level.textContent = this.playerProgress.level;
         this.elements.stars.textContent = this.playerProgress.stars;
+        this.elements.totalPoints.textContent = this.totalPoints.toLocaleString();
     }
 
     /**
