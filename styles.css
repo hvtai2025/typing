@@ -170,6 +170,36 @@ body {
     outline-offset: 2px;
 }
 
+/* Translation Toggle */
+.translation-toggle {
+    margin: 20px 0;
+}
+
+.toggle-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    font-family: 'Fredoka', cursive;
+    border: 3px solid #E2E8F0;
+    border-radius: 15px;
+    background: var(--background);
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.toggle-btn:focus {
+    outline: 3px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
 /* Stats Container */
 .stats-container {
     display: flex;
@@ -264,6 +294,18 @@ body {
     min-width: 300px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     animation: pulse 2s infinite;
+}
+
+.vietnamese-meaning {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #059669;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #D1FAE5, #A7F3D0);
+    border-radius: 15px;
+    display: inline-block;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes pulse {

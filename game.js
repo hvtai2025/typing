@@ -35,6 +35,7 @@ class TypingGame {
         // Player progress
         this.playerProgress = Storage.loadProgress();
         this.playerName = localStorage.getItem('playerName') || null;
+        this.showVietnamese = localStorage.getItem('showVietnamese') === 'true' || false;
         
         // DOM elements (cached for performance)
         this.elements = this.cacheElements();
@@ -53,6 +54,8 @@ class TypingGame {
             startAdventureBtn: document.getElementById('start-adventure-btn'),
             playerGreeting: document.getElementById('player-greeting'),
             playerNameDisplay: document.getElementById('player-name-display'),
+            vietnameseToggle: document.getElementById('vietnamese-toggle'),
+            vietnameseMeaning: document.getElementById('vietnamese-meaning'),
             targetWord: document.getElementById('target-word'),
             typingInput: document.getElementById('typing-input'),
             inputFeedback: document.getElementById('input-feedback'),
@@ -86,6 +89,9 @@ class TypingGame {
             this.showPlayerGreeting();
         }
         
+        // Apply Vietnamese setting
+        this.updateVietnameseToggle();
+        
         // Display saved progress
         this.updateProgressDisplay();
         
@@ -117,6 +123,11 @@ class TypingGame {
         
         if (this.elements.startAdventureBtn) {
             this.elements.startAdventureBtn.addEventListener('click', () => this.startAdventure());
+        }
+        
+        // Vietnamese toggle
+        if (this.elements.vietnameseToggle) {
+            this.elements.vietnameseToggle.addEventListener('click', () => this.toggleVietnamese());
         }
         
         // Typing input
@@ -308,6 +319,7 @@ class TypingGame {
         
         this.currentWord = wordObj.word;
         this.currentIcon = wordObj.icon;
+        const vietnameseMeaning = wordObj.vi || '';
         
         // Display word with icon if available
         if (this.currentIcon) {
@@ -317,6 +329,14 @@ class TypingGame {
             `;
         } else {
             this.elements.targetWord.textContent = this.currentWord;
+        }
+        
+        // Display Vietnamese meaning if enabled
+        if (this.showVietnamese && vietnameseMeaning) {
+            this.elements.vietnameseMeaning.textContent = vietnameseMeaning;
+            this.elements.vietnameseMeaning.style.display = 'block';
+        } else {
+            this.elements.vietnameseMeaning.style.display = 'none';
         }
         
         // Track used words (keep last 20 to avoid immediate repeats)
@@ -646,6 +666,31 @@ class TypingGame {
         if (this.playerName && this.elements.playerGreeting) {
             this.elements.playerNameDisplay.textContent = this.playerName;
             this.elements.playerGreeting.style.display = 'block';
+        }
+    }
+
+    /**
+     * Toggle Vietnamese translation display
+     */
+    toggleVietnamese() {
+        this.showVietnamese = !this.showVietnamese;
+        localStorage.setItem('showVietnamese', this.showVietnamese);
+        this.updateVietnameseToggle();
+        this.loadNewWord(); // Reload current word to show/hide translation
+    }
+
+    /**
+     * Update Vietnamese toggle button state
+     */
+    updateVietnameseToggle() {
+        if (this.elements.vietnameseToggle) {
+            const status = this.showVietnamese ? 'ON' : 'OFF';
+            const color = this.showVietnamese ? '#10B981' : '#6B7280';
+            this.elements.vietnameseToggle.textContent = `🇻🇳 Vietnamese: ${status}`;
+            this.elements.vietnameseToggle.style.background = this.showVietnamese 
+                ? 'linear-gradient(135deg, #D1FAE5, #A7F3D0)' 
+                : '';
+            this.elements.vietnameseToggle.setAttribute('aria-pressed', this.showVietnamese);
         }
     }
 }
