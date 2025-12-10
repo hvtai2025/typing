@@ -95,8 +95,34 @@
                 <div class="input-feedback" id="input-feedback" role="status" aria-live="assertive"></div>
             </div>
 
-            <!-- Virtual Keyboard -->
-            <div class="keyboard" role="region" aria-label="Virtual keyboard">
+            <!-- Keyboard with Hand Guides -->
+            <div class="keyboard-with-hands">
+                <!-- Left Hand Guide -->
+                <div class="hand-container left-hand" role="region" aria-label="Left hand position guide">
+                    <div class="hand-label">Left Hand</div>
+                    <div class="hand-emoji">👈</div>
+                    <div class="fingers">
+                        <div class="finger" data-finger="left-pinky" title="Left Pinky">
+                            <span class="finger-icon">🖕</span>
+                            <span class="finger-name">Pinky</span>
+                        </div>
+                        <div class="finger" data-finger="left-ring" title="Left Ring">
+                            <span class="finger-icon">💆</span>
+                            <span class="finger-name">Ring</span>
+                        </div>
+                        <div class="finger" data-finger="left-middle" title="Left Middle">
+                            <span class="finger-icon">🖖</span>
+                            <span class="finger-name">Middle</span>
+                        </div>
+                        <div class="finger" data-finger="left-index" title="Left Index">
+                            <span class="finger-icon">👆</span>
+                            <span class="finger-name">Index</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Virtual Keyboard -->
+                <div class="keyboard" role="region" aria-label="Virtual keyboard">
                 <div class="keyboard-row">
                     <button class="key" data-key="q">Q</button>
                     <button class="key" data-key="w">W</button>
@@ -130,6 +156,31 @@
                     <button class="key" data-key="m">M</button>
                 </div>
             </div>
+
+            <!-- Right Hand Guide -->
+            <div class="hand-container right-hand" role="region" aria-label="Right hand position guide">
+                <div class="hand-label">Right Hand</div>
+                <div class="hand-emoji">👉</div>
+                <div class="fingers">
+                    <div class="finger" data-finger="right-index" title="Right Index">
+                        <span class="finger-icon">👆</span>
+                        <span class="finger-name">Index</span>
+                    </div>
+                    <div class="finger" data-finger="right-middle" title="Right Middle">
+                        <span class="finger-icon">🖖</span>
+                        <span class="finger-name">Middle</span>
+                    </div>
+                    <div class="finger" data-finger="right-ring" title="Right Ring">
+                        <span class="finger-icon">💆</span>
+                        <span class="finger-name">Ring</span>
+                    </div>
+                    <div class="finger" data-finger="right-pinky" title="Right Pinky">
+                        <span class="finger-icon">🖕</span>
+                        <span class="finger-name">Pinky</span>
+                    </div>
+                </div>
+            </div>
+        </div>
         </main>
 
         <!-- Results Modal -->

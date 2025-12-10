@@ -1463,6 +1463,92 @@ function highlightKey(letter) {
 }
 
 /**
+ * Key to finger mapping for proper typing technique
+ */
+const KEY_TO_FINGER_MAP = {
+    // Left hand - pinky
+    'q': 'left-pinky', 'a': 'left-pinky', 'z': 'left-pinky',
+    '1': 'left-pinky', '`': 'left-pinky', 'tab': 'left-pinky',
+    
+    // Left hand - ring
+    'w': 'left-ring', 's': 'left-ring', 'x': 'left-ring',
+    '2': 'left-ring',
+    
+    // Left hand - middle
+    'e': 'left-middle', 'd': 'left-middle', 'c': 'left-middle',
+    '3': 'left-middle',
+    
+    // Left hand - index
+    'r': 'left-index', 'f': 'left-index', 'v': 'left-index',
+    't': 'left-index', 'g': 'left-index', 'b': 'left-index',
+    '4': 'left-index', '5': 'left-index',
+    
+    // Right hand - index
+    'y': 'right-index', 'h': 'right-index', 'n': 'right-index',
+    'u': 'right-index', 'j': 'right-index', 'm': 'right-index',
+    '6': 'right-index', '7': 'right-index',
+    
+    // Right hand - middle
+    'i': 'right-middle', 'k': 'right-middle',
+    '8': 'right-middle', ',': 'right-middle',
+    
+    // Right hand - ring
+    'o': 'right-ring', 'l': 'right-ring',
+    '9': 'right-ring', '.': 'right-ring',
+    
+    // Right hand - pinky
+    'p': 'right-pinky', '0': 'right-pinky',
+    '[': 'right-pinky', ']': 'right-pinky',
+    ';': 'right-pinky', "'": 'right-pinky',
+    '/': 'right-pinky', '-': 'right-pinky', '=': 'right-pinky'
+};
+
+/**
+ * Highlight the correct finger for typing the given key
+ */
+function highlightFinger(letter) {
+    const finger = KEY_TO_FINGER_MAP[letter.toLowerCase()];
+    
+    if (finger) {
+        // Remove all previous highlights
+        const allFingers = document.querySelectorAll('.finger');
+        allFingers.forEach(f => f.classList.remove('highlight'));
+        
+        // Add highlight to the correct finger
+        const fingerElement = document.querySelector(`[data-finger="${finger}"]`);
+        if (fingerElement) {
+            fingerElement.classList.add('highlight');
+            
+            // Remove highlight after a short delay
+            setTimeout(() => {
+                fingerElement.classList.remove('highlight');
+            }, 600);
+        }
+    }
+}
+
+/**
+ * Highlight finger for the next letter to type
+ */
+function highlightNextFinger(nextLetter) {
+    if (!nextLetter) return;
+    
+    const finger = KEY_TO_FINGER_MAP[nextLetter.toLowerCase()];
+    
+    if (finger) {
+        // Remove all previous highlights
+        const allFingers = document.querySelectorAll('.finger');
+        allFingers.forEach(f => f.classList.remove('highlight'));
+        
+        // Add highlight to show which finger should be used next
+        const fingerElement = document.querySelector(`[data-finger="${finger}"]`);
+        if (fingerElement) {
+            fingerElement.classList.add('highlight');
+        }
+    }
+}
+
+/**
  * Show animated feedback message
  */
 function showFeedback(message, type = 'success') {

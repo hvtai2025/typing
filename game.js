@@ -64,7 +64,8 @@ class TypingGame {
             resultsContent: document.getElementById('results-content'),
             playAgainBtn: document.getElementById('play-again-btn'),
             modeButtons: document.querySelectorAll('.mode-btn'),
-            difficultyButtons: document.querySelectorAll('.difficulty-btn')
+            difficultyButtons: document.querySelectorAll('.difficulty-btn'),
+            fingers: document.querySelectorAll('.finger')
         };
     }
 
@@ -95,6 +96,7 @@ class TypingGame {
             if (this.isPlaying) {
                 soundManager.playKeySound();
                 highlightKey(e.key);
+                highlightFinger(e.key);
             }
         });
         
@@ -297,6 +299,11 @@ class TypingGame {
         // Clear input
         this.elements.typingInput.value = '';
         this.elements.typingInput.className = 'typing-input';
+        
+        // Highlight the finger for the first letter
+        if (this.currentWord && this.currentWord.length > 0) {
+            highlightNextFinger(this.currentWord[0]);
+        }
     }
 
     /**
@@ -313,6 +320,12 @@ class TypingGame {
             // Correct so far
             this.elements.typingInput.className = 'typing-input';
             
+            // Highlight the next letter's finger
+            if (typedText.length < targetText.length) {
+                const nextLetter = targetText[typedText.length];
+                highlightNextFinger(nextLetter);
+            }
+            
             // Check if word is complete
             if (typedText === targetText) {
                 this.handleCorrectWord();
@@ -320,6 +333,12 @@ class TypingGame {
         } else {
             // Incorrect input
             this.elements.typingInput.className = 'typing-input incorrect';
+            
+            // Still show correct finger for next letter
+            if (typedText.length < targetText.length) {
+                const nextLetter = targetText[typedText.length];
+                highlightNextFinger(nextLetter);
+            }
         }
     }
 
