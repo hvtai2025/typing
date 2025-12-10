@@ -541,8 +541,13 @@ class TypingGame {
             soundManager.playGameOverSound();
         }
         
-        // Show results modal
+        // Show results briefly then auto-restart
         this.showResults(accuracy, starsEarned, leveledUp);
+        
+        // Auto restart after 2 seconds
+        setTimeout(() => {
+            this.closeModalAndReset();
+        }, 2000);
         
         // Re-enable controls
         this.elements.modeButtons.forEach(btn => btn.disabled = false);
@@ -554,38 +559,78 @@ class TypingGame {
      */
     showResults(accuracy, starsEarned, leveledUp) {
         const resultsHTML = `
-            <div>
-                ${leveledUp ? '<div style="font-size: 3rem; margin-bottom: 20px;">🎉 LEVEL UP! 🎉</div>' : ''}
-                <div style="font-size: 2rem; margin-bottom: 20px;">${getCongratulationsMessage(accuracy)}</div>
-                <div style="text-align: left; display: inline-block;">
-                    <div><strong>Words Typed:</strong> ${this.wordsCompleted}</div>
-                    <div><strong>Score:</strong> ${this.score}</div>
-                    <div><strong>Accuracy:</strong> ${accuracy}%</div>
-                    <div><strong>Best Streak:</strong> ${this.bestStreak}</div>
-                    <div><strong>Stars Earned:</strong> ⭐ ${starsEarned}</div>
-                    <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #E2E8F0;">
-                        <strong>Level:</strong> ${this.playerProgress.level} | 
-                        <strong>Total Stars:</strong> ⭐ ${this.playerProgress.stars}
+            <div class="game-results">
+                ${leveledUp ? `
+                    <div class="level-up-badge">
+                        <div class="badge-shine"></div>
+                        <div class="level-number">LEVEL ${this.playerProgress.level}</div>
+                        <div class="level-stars">⭐⭐⭐</div>
+                    </div>
+                    <div class="level-up-title">LEVEL UP!</div>
+                ` : `
+                    <div class="completion-badge">
+                        <div class="badge-icon">🎯</div>
+                    </div>
+                    <div class="completion-title">${getCongratulationsMessage(accuracy)}</div>
+                `}
+                
+                <div class="stats-grid">
+                    <div class="stat-box">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-number">${this.wordsCompleted}</div>
+                        <div class="stat-label">Words</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-number">${this.score}</div>
+                        <div class="stat-label">Score</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-icon">✓</div>
+                        <div class="stat-number">${accuracy}%</div>
+                        <div class="stat-label">Accuracy</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-number">${this.bestStreak}</div>
+                        <div class="stat-label">Streak</div>
                     </div>
                 </div>
+                
+                <div class="stars-earned">
+                    <span class="stars-text">+${starsEarned}</span>
+                    <span class="stars-icon">⭐</span>
+                </div>
+                
+                <div class="auto-continue">Next level in <span class="countdown">2</span>s...</div>
             </div>
         `;
         
         this.elements.resultsContent.innerHTML = resultsHTML;
         this.elements.resultsModal.style.display = 'flex';
+        this.elements.resultsModal.classList.add('show');
         
-        // Focus on play again button for accessibility
-        setTimeout(() => {
-            this.elements.playAgainBtn.focus();
-        }, 100);
+        // Animate countdown
+        let countdown = 2;
+        const countdownEl = this.elements.resultsModal.querySelector('.countdown');
+        const countdownInterval = setInterval(() => {
+            countdown--;
+            if (countdownEl) countdownEl.textContent = countdown;
+            if (countdown <= 0) clearInterval(countdownInterval);
+        }, 1000);
     }
 
     /**
      * Close results modal and reset game
      */
     closeModalAndReset() {
-        this.elements.resultsModal.style.display = 'none';
-        this.resetGame();
+        this.elements.resultsModal.classList.remove('show');
+        setTimeout(() => {
+            this.elements.resultsModal.style.display = 'none';
+            this.resetGame();
+            // Auto-start the next level
+            this.startGame();
+        }, 300);
     }
 
     /**
