@@ -498,11 +498,54 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Color coding to match finger bars */
+.key.finger-pinky {
+    border-color: #FCA5A5;
+    background: linear-gradient(135deg, #ffffff 0%, #FEE2E2 100%);
+    color: #DC2626;
+}
+
+.key.finger-ring {
+    border-color: #FDE047;
+    background: linear-gradient(135deg, #ffffff 0%, #FEF9C3 100%);
+    color: #CA8A04;
+}
+
+.key.finger-middle {
+    border-color: #86EFAC;
+    background: linear-gradient(135deg, #ffffff 0%, #DCFCE7 100%);
+    color: #16A34A;
+}
+
+.key.finger-index {
+    border-color: #93C5FD;
+    background: linear-gradient(135deg, #ffffff 0%, #DBEAFE 100%);
+    color: #2563EB;
+}
+
 .key:hover {
-    background: var(--primary-color);
-    color: white;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.key.finger-pinky:hover {
+    background: linear-gradient(135deg, #FEE2E2 0%, #FCA5A5 100%);
+    border-color: #DC2626;
+}
+
+.key.finger-ring:hover {
+    background: linear-gradient(135deg, #FEF9C3 0%, #FDE047 100%);
+    border-color: #CA8A04;
+}
+
+.key.finger-middle:hover {
+    background: linear-gradient(135deg, #DCFCE7 0%, #86EFAC 100%);
+    border-color: #16A34A;
+}
+
+.key.finger-index:hover {
+    background: linear-gradient(135deg, #DBEAFE 0%, #93C5FD 100%);
+    border-color: #2563EB;
 }
 
 .key.active {
@@ -512,9 +555,32 @@ body {
 }
 
 .key.highlight {
-    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    transform: scale(0.95);
+    box-shadow: 0 0 20px currentColor;
+}
+
+.key.finger-pinky.highlight {
+    background: linear-gradient(135deg, #FCA5A5 0%, #DC2626 100%);
     color: white;
-    animation: keyPulse 0.5s ease;
+    border-color: #DC2626;
+}
+
+.key.finger-ring.highlight {
+    background: linear-gradient(135deg, #FDE047 0%, #CA8A04 100%);
+    color: white;
+    border-color: #CA8A04;
+}
+
+.key.finger-middle.highlight {
+    background: linear-gradient(135deg, #86EFAC 0%, #16A34A 100%);
+    color: white;
+    border-color: #16A34A;
+}
+
+.key.finger-index.highlight {
+    background: linear-gradient(135deg, #93C5FD 0%, #2563EB 100%);
+    color: white;
+    border-color: #2563EB;
 }
 
 @keyframes keyPulse {
